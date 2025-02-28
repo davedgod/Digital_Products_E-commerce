@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "Lingua",
+    "currency": "Valuta",
+    "search": "Cerca",
+    "cart": "Carrello",
+    "account": "Il Mio Account"
+  },
+  "product": {
+    "addToCart": "Aggiungi al Carrello",
+    "outOfStock": "Esaurito",
+    "description": "Descrizione",
+    "specifications": "Specifiche"
+  }
+}

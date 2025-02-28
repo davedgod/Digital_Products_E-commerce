@@ -55,6 +55,20 @@ const defaultProducts: Product[] = [
       "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=400&h=300&fit=crop",
     category: "Photography",
   },
+  {
+    id: "4",
+    title: "Web Development Course",
+    price: 149.99,
+    image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    category: "Development"
+  },
+  {
+    id: "5",
+    title: "Business Strategy Bundle",
+    price: 199.99,
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+    category: "Business"
+  }
 ];
 
 const FeaturedProductsSlider = ({

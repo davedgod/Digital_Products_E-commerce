@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "Idioma",
+    "currency": "Moneda",
+    "search": "Buscar",
+    "cart": "Carrito de Compras",
+    "account": "Mi Cuenta"
+  },
+  "product": {
+    "addToCart": "Añadir al Carrito",
+    "outOfStock": "Agotado",
+    "description": "Descripción",
+    "specifications": "Especificaciones"
+  }
+}

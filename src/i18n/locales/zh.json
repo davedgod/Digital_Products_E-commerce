@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "语言",
+    "currency": "货币",
+    "search": "搜索",
+    "cart": "购物车",
+    "account": "我的账户"
+  },
+  "product": {
+    "addToCart": "加入购物车",
+    "outOfStock": "缺货",
+    "description": "描述",
+    "specifications": "规格"
+  }
+}

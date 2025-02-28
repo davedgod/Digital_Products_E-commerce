@@ -4,8 +4,11 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Check, FileText, Star } from "lucide-react";
+import ProductPrice from "./ProductPrice";
 
 interface ProductDetailsProps {
+  name: string;
+  price: number;
   description?: string;
   technicalDetails?: {
     format: string;
@@ -23,6 +26,8 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({
+  name,
+  price,
   description = "This is a comprehensive digital product that helps you achieve amazing results. It includes multiple features and benefits that will enhance your workflow and productivity.",
   technicalDetails = {
     format: "PDF, PSD, AI",
@@ -49,7 +54,9 @@ const ProductDetails = ({
 }: ProductDetailsProps) => {
   return (
     <Card className="w-full bg-white p-6">
-      <Tabs defaultValue="description" className="w-full">
+      <h1 className="text-2xl font-bold mb-4">{name}</h1>
+      <ProductPrice price={price} />
+      <Tabs defaultValue="description" className="w-full mt-6">
         <TabsList className="grid w-full grid-cols-3 mb-6">
           <TabsTrigger value="description">Description</TabsTrigger>
           <TabsTrigger value="technical">Technical Details</TabsTrigger>

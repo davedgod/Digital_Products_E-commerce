@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "Language",
+    "currency": "Currency",
+    "search": "Search",
+    "cart": "Shopping Cart",
+    "account": "My Account"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "outOfStock": "Out of Stock",
+    "description": "Description",
+    "specifications": "Specifications"
+  }
+}

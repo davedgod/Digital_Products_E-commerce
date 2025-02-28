@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,55 +7,56 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
-import { useLocale, Language, Currency } from "@/contexts/LocaleContext";
+import { useLocale } from "@/contexts/LocaleContext";
+import { useTranslation } from "react-i18next";
 
-const languages: Language[] = [
-  { code: "en", name: "English" },
-  { code: "es", name: "Español" },
-  { code: "fr", name: "Français" },
-];
-
-const currencies: Currency[] = [
-  { code: "USD", symbol: "$", name: "US Dollar" },
-  { code: "EUR", symbol: "€", name: "Euro" },
-  { code: "GBP", symbol: "£", name: "British Pound" },
-];
-
-export default function LanguageCurrencySelector() {
-  const { currentLanguage, setCurrentLanguage, currentCurrency, setCurrentCurrency } = useLocale();
+export default function LocaleSelector() {
+  const { t } = useTranslation();
+  const {
+    currentLanguage,
+    setCurrentLanguage,
+    currentCurrency,
+    setCurrentCurrency,
+    languages,
+    currencies
+  } = useLocale();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="relative">
           <Globe className="h-5 w-5" />
+          <span className="absolute -bottom-1 -right-1 text-xs">
+            {currentLanguage.flag}
+          </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[200px]">
-        <DropdownMenuLabel>Language</DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuLabel>{t('common.language')}</DropdownMenuLabel>
         {languages.map((language) => (
           <DropdownMenuItem
             key={language.code}
             onClick={() => setCurrentLanguage(language)}
           >
-            <span className="font-medium">{language.name}</span>
+            <span className="mr-2">{language.flag}</span>
+            {language.name}
             {currentLanguage.code === language.code && (
               <span className="ml-auto">✓</span>
             )}
           </DropdownMenuItem>
         ))}
+
         <DropdownMenuSeparator />
-        <DropdownMenuLabel>Currency</DropdownMenuLabel>
+
+        <DropdownMenuLabel>{t('common.currency')}</DropdownMenuLabel>
         {currencies.map((currency) => (
           <DropdownMenuItem
             key={currency.code}
             onClick={() => setCurrentCurrency(currency)}
           >
-            <span className="font-medium">
-              {currency.symbol} {currency.name}
-            </span>
+            <span className="mr-2">{currency.symbol}</span>
+            {currency.name}
             {currentCurrency.code === currency.code && (
               <span className="ml-auto">✓</span>
             )}

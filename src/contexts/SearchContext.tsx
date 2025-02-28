@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useCallback } from "react";
+import debounce from "lodash/debounce";
 import { supabase } from "@/lib/supabase";
 
 interface SearchResult {
@@ -13,45 +14,45 @@ interface SearchContextType {
   searchQuery: string;
   searchResults: SearchResult[];
   isSearching: boolean;
-  setSearchQuery: (query: string) => void;
   search: (query: string) => Promise<void>;
 }
 
-const SearchContext = createContext<SearchContextType>({
-  searchQuery: "",
-  searchResults: [],
-  isSearching: false,
-  setSearchQuery: () => {},
-  search: async () => {},
-});
+const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
 export function SearchProvider({ children }: { children: React.ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  const search = async (query: string) => {
+  const search = useCallback(async (query: string) => {
     if (!query.trim()) {
       setSearchResults([]);
       return;
     }
 
     setIsSearching(true);
+    setSearchQuery(query);
+
     try {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("products")
         .select("*")
-        .ilike("name", `%${query}%`)
-        .limit(10);
+        .ilike("name", `%${query}%`);
 
+      if (error) {
+        console.error("Search error:", error);
+        throw error;
+      }
+
+      console.log("Search results:", data); // Debug log
       setSearchResults(data || []);
     } catch (error) {
-      console.error("Search error:", error);
+      console.error("Search failed:", error);
       setSearchResults([]);
     } finally {
       setIsSearching(false);
     }
-  };
+  }, []);
 
   return (
     <SearchContext.Provider
@@ -59,7 +60,6 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
         searchQuery,
         searchResults,
         isSearching,
-        setSearchQuery,
         search,
       }}
     >
@@ -68,4 +68,10 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const useSearch = () => useContext(SearchContext);
+export function useSearch() {
+  const context = useContext(SearchContext);
+  if (!context) {
+    throw new Error("useSearch must be used within a SearchProvider");
+  }
+  return context;
+}

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, ReactPayPalScriptOptions } from "@paypal/react-paypal-js";
 
 interface PaymentContextType {
   processPayment: (
@@ -11,11 +11,17 @@ interface PaymentContextType {
 }
 
 const PaymentContext = createContext<PaymentContextType>({
-  processPayment: async () => {},
+  processPayment: async () => { },
   isProcessing: false,
 });
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+const paypalOptions: ReactPayPalScriptOptions = {
+  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID, // use clientId, not "client-id"
+  currency: "USD",
+  intent: "capture",
+};
 
 export function PaymentProvider({ children }: { children: React.ReactNode }) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -51,9 +57,7 @@ export function PaymentProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <PaymentContext.Provider value={{ processPayment, isProcessing }}>
-      <PayPalScriptProvider
-        options={{ "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID }}
-      >
+      <PayPalScriptProvider options={paypalOptions}>
         {children}
       </PayPalScriptProvider>
     </PaymentContext.Provider>

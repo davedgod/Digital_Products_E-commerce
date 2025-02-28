@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "언어",
+    "currency": "통화",
+    "search": "검색",
+    "cart": "장바구니",
+    "account": "내 계정"
+  },
+  "product": {
+    "addToCart": "장바구니에 추가",
+    "outOfStock": "재고 없음",
+    "description": "설명",
+    "specifications": "사양"
+  }
+}
