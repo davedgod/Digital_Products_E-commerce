@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { useSearch } from "@/contexts/SearchContext";
+import FeaturedProductsSlider from "@/components/home/FeaturedProductsSlider";
 
 const MainHero = () => {
   const [inputValue, setInputValue] = useState("");
@@ -49,6 +50,7 @@ const MainHero = () => {
             <Button type="submit" size="lg" className="h-12 px-8">
               Search
             </Button>
+
           </div>
         </form>
       </div>
